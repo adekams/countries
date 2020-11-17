@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <title>Countries</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+            
+        .card {
+            border: none;
+            box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.5);
+            width: 240px;
+            height: 300px;
+            padding: 20px;
+            margin-right: 10px;
+            color: #333;
+            border-radius: 5px;
+            background-color: #f4f4fe;
+            overflow: auto;
+            margin-bottom: 30px;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            /* box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.0.8); */
+        }
+
+        img {
+            width: 70%;
+            height: 30%
+        }
+
+        #countries {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .fas {
+            font-size: 250px;
+        }
+        .error {
+            display: none;
+            font-size: 40px;
+            color: #333;
+            
+        }
+        #text {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>FETCH API</h1>
+    <div class="container">
+        <i class="fas fa-spinner fa-pulse"></i>
+        <div id="countries">
+            <h2 class="error"></h2>
+        </div>
+    </div> 
+
+<script>
+    const error = document.querySelector('.error')
+    const url = 'https://restcountries.eu/rest/v2/all'
+    fetch(url)
+    .then(res => {
+        if (!res.ok) {
+            throw Error(res.statusText)    
+        }
+        return res.json();
+        
+    }).then(data => {
+        console.log(data);
+
+        const count = data.map(country => {
+            return `
+                <div class="card">
+                    <img class='card-image' src=${country.flag} alt='flag'>
+                    <h2 class="card-header">Name: ${country.name}</h2>
+                    <h4 class="card-title">Capital: ${country.capital}</h4>
+                    <p class="card-text">Region: ${country.region}</p>
+                    <p class="card-text">Population: ${country.population}</p>
+                </div>
+            `
+        })
+        
+        document.querySelector('#countries').insertAdjacentHTML('afterbegin', count)
+        document.querySelector('.fas').style.display = 'none'
+    })
+    .catch(err => {
+       console.log('rejected', err) 
+    //    alert(err)
+       error.innerHTML = err
+       error.style.display = 'block'
+    })
+</script>
+</body>
+</html>
+
+ <!-- https://restcountries.eu/rest/v2/all -->
