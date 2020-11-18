@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <title>Countries</title>
+    <title>Countries API</title>
     <style>
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
         }
 
         h1 {
@@ -25,7 +24,6 @@
             height: 300px;
             padding: 20px;
             margin-right: 10px;
-            color: #333;
             border-radius: 5px;
             background-color: #f4f4fe;
             overflow: auto;
@@ -53,9 +51,7 @@
         }
         .error {
             display: none;
-            font-size: 40px;
-            color: #333;
-            
+            font-size: 40px;    
         }
         #text {
             display: none;
@@ -63,7 +59,7 @@
     </style>
 </head>
 <body>
-    <h1>FETCH API</h1>
+    <h1>FETCH API (Countries)</h1>
     <div class="container">
         <i class="fas fa-spinner fa-pulse"></i>
         <div id="countries">
@@ -96,7 +92,7 @@
             `
         })
         
-        document.querySelector('#countries').insertAdjacentHTML('afterbegin', count)
+        document.querySelector('#countries').insertAdjacentHTML('afterbegin', count.join(''))
         document.querySelector('.fas').style.display = 'none'
     })
     .catch(err => {
